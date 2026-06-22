@@ -41,18 +41,26 @@
 **Prompt used:**
 
 ```
-<!-- Paste the prompt you gave the AI -->
+Add professional grade docstrings to the functions in logic_utils.py. Also, review my code for PEP 8 style compliance.
 ```
 
 **Linting output before:**
 
 ```
-<!-- Paste relevant linter warnings/errors -->
+logic_utils.py — now PEP 8 clean. One note: line 71 except Exception: is broad (E722-adjacent style smell). Narrow to except ValueError: — that's what int/float raise.
+
+app.py — only style issue: block comments need space after # (PEP 8 E265):
+
+app.py:3 #FIX: → # FIX:
+app.py:25 #FIX: → # FIX:
+app.py:80 #FIX: → # FIX:
+app.py:84 #st.session_state... → # st.session_state...
+Rest clean. Line lengths fine. Want fixes applied?
 ```
 
 **Changes applied:**
 
-<!-- Describe what you changed based on the AI's suggestions -->
+I applied the style suggestions. I also completely the removed the comment on app.py:84, as it served no purpose. Changed line 71 to except a value error.
 
 ---
 

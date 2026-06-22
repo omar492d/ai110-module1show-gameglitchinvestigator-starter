@@ -1,6 +1,6 @@
 import random
 import streamlit as st
-#FIX: Refactored logic into separate module, logic_utils.py
+# FIX: Refactored logic into separate module, logic_utils.py
 from logic_utils import (
     get_range_for_difficulty,
     parse_guess,
@@ -22,7 +22,7 @@ difficulty = st.sidebar.selectbox(
 )
 
 attempt_limit_map = {
-    #FIX: Attempts allowed now decrease as difficulty increases
+    # FIX: Attempts allowed now decrease as difficulty increases
     "Easy": 8,
     "Normal": 6,
     "Hard": 5,
@@ -77,11 +77,10 @@ with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
 if new_game:
-    #FIX: Used Claude to allow player to start a new game after round end
+    # FIX: Used Claude to allow player to start a new game after round end
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(1, 100)
     st.session_state.status = "playing"
-    #st.session_state.score = 0
     st.session_state.history = []
     st.success("New game started.")
     st.rerun()

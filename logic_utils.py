@@ -1,5 +1,13 @@
 def get_range_for_difficulty(difficulty: str):
-    """Return (low, high) inclusive range for a given difficulty."""
+    """Return the inclusive guessing range for a difficulty level.
+
+    Args:
+        difficulty: Difficulty name. One of "Easy", "Normal", or "Hard".
+
+    Returns:
+        tuple[int, int]: A ``(low, high)`` pair giving the inclusive bounds.
+        Unknown difficulties fall back to the "Normal" range ``(1, 100)``.
+    """
     if difficulty == "Easy":
         return 1, 20
     if difficulty == "Normal":
@@ -10,10 +18,19 @@ def get_range_for_difficulty(difficulty: str):
 
 
 def parse_guess(raw: str):
-    """
-    Parse user input into an int guess.
+    """Parse raw user input into an integer guess.
 
-    Returns: (ok: bool, guess_int: int | None, error_message: str | None)
+    Accepts plain integers as well as decimal strings, which are truncated
+    toward zero (e.g. ``"3.9"`` becomes ``3``).
+
+    Args:
+        raw: The raw input string, or ``None``.
+
+    Returns:
+        tuple[bool, int | None, str | None]: A ``(ok, guess, error)`` triple.
+        On success, ``ok`` is ``True``, ``guess`` holds the parsed integer, and
+        ``error`` is ``None``. On failure, ``ok`` is ``False``, ``guess`` is
+        ``None``, and ``error`` is a human-readable message.
     """
     if raw is None:
         return False, None, "Enter a guess."
@@ -26,22 +43,28 @@ def parse_guess(raw: str):
             value = int(float(raw))
         else:
             value = int(raw)
-    except Exception:
+    except ValueError:
         return False, None, "That is not a number."
 
     return True, value, None
 
 
 def check_guess(guess, secret):
-    """
-    Compare guess to secret and return (outcome, message).
+    """Compare a guess against the secret number.
 
-    outcome examples: "Win", "Too High", "Too Low"
+    Args:
+        guess: The player's guess.
+        secret: The target number to match.
+
+    Returns:
+        tuple[str, str]: An ``(outcome, message)`` pair. ``outcome`` is one of
+        ``"Win"``, ``"Too High"``, or ``"Too Low"``, and ``message`` is the
+        display string shown to the player.
     """
     if guess == secret:
         return "Win", "🎉 Correct!"
 
-    #FIX: Used Claude to fix the misleading hints bug
+    # FIX: Used Claude to fix the misleading hints bug
     try:
         if guess > secret:
             return "Too High", "📉 Go LOWER!"
@@ -57,7 +80,20 @@ def check_guess(guess, secret):
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
-    """Update score based on outcome and attempt number."""
+    """Update the running score based on the latest guess outcome.
+
+    A win awards points that decrease with each attempt, floored at 10.
+    A "Too Low" outcome always costs 5 points; a "Too High" outcome awards
+    5 points on even attempts and costs 5 on odd attempts.
+
+    Args:
+        current_score: The score before this guess.
+        outcome: The guess outcome, as returned by :func:`check_guess`.
+        attempt_number: Zero-based index of the current attempt.
+
+    Returns:
+        int: The updated score.
+    """
     if outcome == "Win":
         points = 100 - 10 * (attempt_number + 1)
         if points < 10:
