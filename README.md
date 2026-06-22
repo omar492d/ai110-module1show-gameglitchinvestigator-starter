@@ -25,19 +25,30 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [x] Describe the game's purpose.
+   Glitchy Guesser is a number-guessing game that runs on the web. There are three difficulties that differ in how many attempts are allowed. The player guesses a secret number and gets a higher/lower hint. The player gains points on correct guesses and loses points on incorrect guesses. This game was a learning experience for how to understand, develop, and debug real projects using AI.
+- [x] Detail which bugs you found.
+   1. Reversed hints: the game told the player to go higher when the guess was too high and go lower when the guess was too low.
+   2. Unresponsive "new game" button: after a round ended, the button appeared to do nothing and the player was unable to restart.
+   3. Incorrect difficulties: the Easy difficulty had lower attempts allowed than the Normal difficulty.
+- [x] Explain what fixes you applied.
+   1. Swapped the hint messages in the game logic.
+   2. Made the "new game" button to correctly modify the state, which resolved the issue.
+   3. Changed Easy mode to have 8 attempts and Normal mode to have 6 attempts.
+   4. Refactored the game logic into logic_utils.py
 
 ## 📸 Demo Walkthrough
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. User enters 57
+2. Game hints to "Go LOWER"
+3. User enters 40
+4. Game hints to "Go HIGHER"
+5. User enters 48
+6. Correct answer! Round ends.
+7. User presses "new game"
+8. Score updates after each guess
 
 **Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
 

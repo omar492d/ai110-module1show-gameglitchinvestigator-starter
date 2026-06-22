@@ -55,12 +55,14 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 4. What did you learn about Streamlit and state?
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
-
+  Streamlit works by rerunning the entire python script whenever a user interacts with the application. This means that any variables are created once again from scratch with every rerun. To bypass this, Streamlit provides the session_state variable, which persists between reruns. The state stores important information and settings about the program. It is necessary to begin the script by checking if session_state already contains certain variables. If it does not, then the script is running for the first time and the program initializes those variables. 
 ---
 
 ## 5. Looking ahead: your developer habits
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
+  Pushing to Git using the Source Control panel in VS Code. This made it very simple to enter a message, commit, and sync to Github. Normally, this entire process would be done through the terminal.
 - What is one thing you would do differently next time you work with AI on a coding task?
+  I would focus more on understanding what is causing a bug. I would also make sure to ask if there are better or more efficient ways of completing the same task.
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+  This project showed me that humans should still rely on their own judgement instead of blindly relying on AI. Sometimes an AI might make a suggestion that does not cause errors, but it still might not be the best decision depending on the context and objectives.
