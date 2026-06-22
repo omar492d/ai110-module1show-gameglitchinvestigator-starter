@@ -36,16 +36,20 @@ Document at least 3 bugs you found. Add rows as needed.
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
     Claude Code
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
+    The AI correctly helped me fix the reversed hints bug. Before this, the game hints would direct the player in the opposite direction. Claude suggested that I swap the hint messages that the the check_guess function returns. I asked Claude to write some tests for this bug and also verified the results myself in the game.
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
-
+    While fixing the unresponsive "new game" button issue, Claude suggested that I reset the score after every new game. But this would have made the game unenjoyable, as players would not have the chance to climb to new high scores. It is an important design decision to make the score persist between rounds. I verified the result in-game myself.
 ---
 
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
+    The main approach was testing the results manually. I also told Claude to generate pytests. For the unresponsive button bug, Claude decided to use the module AppTest, which would simulate the app running. It then  wrote a pytest that ensured that a "new game" button click would correctly modify the game state.
 - Describe at least one test you ran (manual or using pytest)  
   and what it showed you about your code.
+    I tested that the "new game" button worked correctly using the test file that Claude generated. I also verified the results in the game. Solving this issue taught me about the importance of the state in ensuring that the player gets the expected results in response to a certain action. If the state is not modified properly, as was the case before, then the game might behave unpredictably.
 - Did AI help you design or understand any tests? How?
+    AI helped me design the tests for the bugs. It also pointed me to an issue in the existing tests, which caused them to fail. Originally, the tests expected the check_guess function to return a single value, whereas it actually returned a tuple of two values, causing an error.
 ---
 
 ## 4. What did you learn about Streamlit and state?
